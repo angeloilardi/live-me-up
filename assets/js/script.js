@@ -17,6 +17,7 @@ function artistSearch (artist){
         //console.log(numOfEvents);
         // let currentlyDisplayed = 0
         // message if the are no results
+        console.log(response);
         if (response.length === 0) {
             $(".eventList").html(`<h3 class="mx-auto">Sorry, no results for this artist :/</h3>`).addClass("row align-items-center");
             //calls function to display results
@@ -28,6 +29,8 @@ function artistSearch (artist){
 
 function showEvents (response, counter) {
     $(".eventList").empty();
+    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${response[0].artist.name}`).addClass("row mb-4");
+    $(".eventList").append(resultsHeading);
     // for each event found
     for (let i = counter; i < response.length; i++){
         // gets the date and changes the format
@@ -46,9 +49,11 @@ function showEvents (response, counter) {
         let eventVenue = $("<h6>").text(`${venue}`).addClass("p-2");
         // gets link to the tickets
         let getTicketsBtn = $("<button>").addClass("ml-auto").append((`<a target="_blank" href = ${response[i].url}>Get Tickets</a>`));
+        //heading for event resulsts
+         
         $(eventRow).append(eventContent, eventVenue, getTicketsBtn);
         $(".eventList").append(eventRow);
         
     }
 }
-artistSearch ("beyonce")
+artistSearch ("destroyer")
