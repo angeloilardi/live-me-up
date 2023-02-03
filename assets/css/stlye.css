@@ -1,3 +1,6 @@
 * {
     box-sizing: border-box;
 }
+.eventList {
+    height: 800px;
+}
