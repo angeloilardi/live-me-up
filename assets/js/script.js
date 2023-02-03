@@ -1,41 +1,10 @@
-function searchForSong (){
-    let searchQuery = $("#band-name").val();
-    const settings = {
-        
-        "async": true,
-        "crossDomain": true,
-        "url": `https://deezerdevs-deezer.p.rapidapi.com/search?q=${searchQuery}`,
-        "method": "GET",
-        "headers": {
-            "X-RapidAPI-Key": "19e961b6d4mshcb2069c12dfc362p11fe14jsn8dd0f5850428",
-            "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com"
-        }
-    };
-    
-    $.ajax(settings).done(function (response) {
-        console.log(response);
-        let player = $("<div>")
-        
-        let audio = $("<audio>").attr({
-            src: response.data[0].preview,
-            controls: "controls",
-            autoplay: "autoplay",
-            type: "audio/mpeg"
-        });
-        $(player).html(audio)
-        $("body").prepend(player)
-    });
-}
-
-
-
 function artistSearch (artist){
     $.ajax({
         url: `https://rest.bandsintown.com/artists/${artist}/events?app_id=codingbootcamp`,
         method: "GET",
         //error 404 handling
         error: function (xhr, thrownError){
-            $(".eventList").empty();
+            $(".event-container").empty();
             if (xhr.status == 404) {
                 $(".eventList").html(`<h3 class="mx-auto">Ermm, we couldn't find that. Wanna give it another try?</h3>`).addClass("row align-items-center")
             }
@@ -50,7 +19,7 @@ function artistSearch (artist){
         // message if the are no results
         console.log(response);
         if (response.length === 0) {
-            $(".eventList").html(`<h3 class="mx-auto">Sorry, no results for this artist :/</h3>`).addClass("row align-items-center");
+            $(".event-container").html(`<h3 class="mx-auto">Sorry, no results for this artist :/</h3>`).addClass("row align-items-center");
             //calls function to display results
         } else { showEvents (response, 0)   
         }       
@@ -59,9 +28,9 @@ function artistSearch (artist){
     
 
 function showEvents (response, counter) {
-    $(".eventList").empty();
-    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${response[0].artist.name}`).addClass("row mb-4");
-    $(".eventList").append(resultsHeading);
+    $(".event-container").empty();
+    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${response[0].artist.name}`).addClass("row m-4");
+    $(".event-container").append(resultsHeading);
     // for each event found
     for (let i = counter; i < response.length; i++){
         // gets the date and changes the format
@@ -73,7 +42,7 @@ function showEvents (response, counter) {
         // gets the name of the venue
         let venue = response[i].venue.name;
         //creates a row for the event
-        let eventRow = $("<div>").addClass("row align-items-center");
+        let eventRow = $("<div>").addClass("row align-items-center p-4");
         // builds the event text
         let eventContent = $("<h5>").text(`${date} - ${city} - ${country}`);
         // the venue name with a smaller font
@@ -83,7 +52,7 @@ function showEvents (response, counter) {
         //heading for event resulsts
          
         $(eventRow).append(eventContent, eventVenue, getTicketsBtn);
-        $(".eventList").append(eventRow);
+        $(".event-container").append(eventRow);
         
     }
 }
