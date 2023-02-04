@@ -6,7 +6,8 @@ function artistSearch (artist){
         error: function (xhr, thrownError){
             $(".event-container").empty();
             if (xhr.status == 404) {
-                $(".eventList").html(`<h3 class="mx-auto">Ermm, we couldn't find that. Wanna give it another try?</h3>`).addClass("row align-items-center")
+                $(".event-container").html(`<h3 class="mx-auto">Ermm, we couldn't find that. Wanna give it another try?</h3>`)
+                //.toggleClass("row align-items-center")
             }
         }
     }
@@ -19,7 +20,8 @@ function artistSearch (artist){
         // message if the are no results
         console.log(response);
         if (response.length === 0) {
-            $(".event-container").html(`<h3 class="mx-auto">Sorry, no results for this artist :/</h3>`).addClass("row align-items-center");
+            $(".event-container").html(`<h3 class="mx-auto">Sorry, no results for this artist :/</h3>`)
+            //.addClass("row align-items-center");
             //calls function to display results
         } else { showEvents (response, 0)   
         }       
