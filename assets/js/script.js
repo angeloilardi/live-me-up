@@ -42,7 +42,7 @@ function showEvents (response, counter) {
         // gets the name of the venue
         let venue = response[i].venue.name;
         //creates a row for the event
-        let eventRow = $("<div>").addClass("row align-items-center p-4");
+        let eventRow = $("<div>").addClass("row align-items-center p-2");
         // builds the event text
         let eventContent = $("<h5>").text(`${date} - ${city} - ${country}`);
         // the venue name with a smaller font
