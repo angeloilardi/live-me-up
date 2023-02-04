@@ -56,4 +56,10 @@ function showEvents (response, counter) {
         
     }
 }
-artistSearch ("destroyer")
+
+
+$("#search-btn").on("click", function(){
+    let searchEntry = $("#artist-search").val();
+    console.log(searchEntry);
+    artistSearch (searchEntry);
+})
