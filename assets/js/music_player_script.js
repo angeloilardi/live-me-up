@@ -1,7 +1,7 @@
 // Save references to DOM elements
-const selectedArtist = $('#deezer-song')[0];
+const musicContainer = $('.music-container');
 // Hetting a value from the text input field
-let searchQueryInput = $('#song-name'); 
+let searchQueryInput = $('#artist-search'); 
 
 // The searchForSong function takes a music, searches the Deezer API for it, 
 // and then passes the data to open music player
@@ -30,6 +30,8 @@ function searchForSong() {
     $.ajax(settings).done(function (response) {
         // Variable that keeps the way to take music album of selected artist
         const albumPreview = response.data[0].album.id;
+        // Closing the player before opening a new one to remove old iframe element
+        closePlayer();
         // Call openPlayer function to play selected artist album
         openPlayer(albumPreview);
     });
@@ -38,14 +40,13 @@ function searchForSong() {
 // Function that open music player to play selected artist album
 function openPlayer(albumPreview) {
     // Setting up player parameters
-    selectedArtist.width = '300';
-    selectedArtist.height = '360';
-    selectedArtist.src = `https://widget.deezer.com/widget/dark/album/${albumPreview}?tracklist=false`
+    const url = `https://widget.deezer.com/widget/dark/album/${albumPreview}?tracklist=false`;
+    musicContainer.html(`<iframe title="deezer-widget" src="${url}" width="300" height="360" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>`);
 }
 
 // Function that close the music player when press the button
 function closePlayer() {
-    selectedArtist.width = '0';
-    selectedArtist.height = '0';
-    selectedArtist.src = '';
+    musicContainer.empty();
 }
+
+$("#search-btn").on("click", searchForSong)
