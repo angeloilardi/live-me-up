@@ -17,9 +17,18 @@
 
 <body>
     <!-- Hero -->
-    <div class="p-5 text-center bg-image rounded-3 " style="
-background-image: url('https://images.unsplash.com/photo-1619983081563-430f63602796?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bXVzaWN8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60') ;
-height: 400px;
+    <div class="p-5 text-center bg-image rounded-3 darkened-image" style="
+background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80');
+background-repeat: no-repeat;
+background-size: cover;
+    background-attachment: fluid;
+    background-color: transparent;
+    filter: brightness(100%);
+    filter: saturate(80%);
+    filter: contrast(150%);
+    display: table;
+    width: 100%;
+    height: 100vh;
 ">
         <div class="mask">
             <div class="d-flex justify-content-center align-items-center h-100">
@@ -29,10 +38,10 @@ height: 400px;
                     <h2 class="mb-3">Intro</h2>
                     <div class="input-group">
                         <div id="search-autocomplete" class="form-outline">
-                            <input type="search" id="artist-search" class="form-control" />
+                            <input type="search" id="form1" class="form-control" />
                             <label class="form-label" for="form1">Search</label>
                         </div>
-                        <button type="button" class="btn btn-primary" id = "search-btn">
+                        <button type="button" class="btn btn-primary">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -42,16 +51,10 @@ height: 400px;
             </div>
         </div>
     </div>
+
     <!-- Hero -->
 
     <!--Andy's code below this section everything above agnieszka. Andy will be working on image cards and large event container-->
-    <!--artist search and button-->
-    <!--image card 1-->
-    <!--image card 2-->
-    <!--image card 3-->
-    <!--events infro-->
-    <!--music player container-->
-    <!--sidebar left to contain images and search-->
     <div class="belowTheFold">
         <!--
         <div class="container-fluid">
@@ -85,9 +88,21 @@ height: 400px;
                 </div>
             </div>
         </div>-->
-        <div class="container event-container justify-content-center">event container
+        <div class="row">
+
+            <div class="col-lg-12 p-3 mt-3"></div>
+        </div>
+        <div class="container event-container d-flex justify-content-center">event container
+        </div>
+        <div class="row">
+
+            <div class="col-lg-12 p-3 mt-3"></div>
         </div>
         <div class="container music-container mx-auto justify-content-center">Music container</div>
+        <div class="row">
+
+            <div class="col-lg-12 p-3 mt-3"></div>
+        </div>
     </div>
     <!-- Moment -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
