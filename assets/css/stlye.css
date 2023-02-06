@@ -1,3 +1,4 @@
+/*Angnieszkas code*/
 * {}
 
 .mask {
@@ -16,19 +17,41 @@
     border-radius: 15px;
 }
 
-/* everything above is agniezkas code*/
+/* everything below this point is Andys code*/
 .belowTheFold {
-    background-color: darkslategrey;
+    background-image: linear-gradient(to top, #434343 0%, black 100%);
+    opacity: 97%;
+}
+
+.row {
+    text-align: center;
+}
+
+.row h2 {
+    font-size: xx-large;
+    font-weight: bolder;
+    color: white;
 }
 
 .event-container {
-    max-width: 600px;
+    max-width: 100%;
     min-height: 600px;
     border: 1px solid white;
 }
 
 .music-container {
-    max-width: 300px;
-    min-height: 300px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    min-height: 400px;
+}
+
+.deezer-box {
+    flex: 0 350px 0;
     border: 1px solid white;
+    width: 350px;
+    height: 350px;
+    text-align: center;
 }
