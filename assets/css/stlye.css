@@ -20,7 +20,17 @@
 /* everything below this point is Andys code*/
 .belowTheFold {
     background-image: linear-gradient(to top, #434343 0%, black 100%);
-    opacity: 95%;
+    opacity: 97%;
+}
+
+.row {
+    text-align: center;
+}
+
+.row h2 {
+    font-size: xx-large;
+    font-weight: bolder;
+    color: white;
 }
 
 .event-container {
@@ -43,4 +53,5 @@
     border: 1px solid white;
     width: 350px;
     height: 350px;
+    text-align: center;
 }
