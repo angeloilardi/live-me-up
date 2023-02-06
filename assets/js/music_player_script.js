@@ -28,12 +28,23 @@ function searchForSong() {
     
     // API call to take the data from deezer server
     $.ajax(settings).done(function (response) {
+        if (!response.data || response.data.length <= 0) {
+            musicContainer.html('<h3 class="mx-auto">Sorry, no results for this artist :/</h3>');
+            // If no data returned from deezer then end this function
+            return;
+        }
+
         // Variable that keeps the way to take music album of selected artist
         const albumPreview = response.data[0].album.id;
-        // Closing the player before opening a new one to remove old iframe element
-        closePlayer();
+        // Keeps the way to take artist picture from the Deezer
+        const artistPictureDeezer = response.data[0].artist.picture_medium;
+
+        // Remove old iframe element and picture before adding new one
+        musicContainer.empty();
         // Call openPlayer function to play selected artist album
         openPlayer(albumPreview);
+        // Adding artist picture from Deezer
+        displayArtistPicture(artistPictureDeezer);
     });
 }
 
@@ -41,12 +52,12 @@ function searchForSong() {
 function openPlayer(albumPreview) {
     // Setting up player parameters
     const url = `https://widget.deezer.com/widget/dark/album/${albumPreview}?tracklist=false`;
-    musicContainer.html(`<iframe title="deezer-widget" src="${url}" width="300" height="360" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>`);
+    musicContainer.append(`<iframe title="deezer-widget" src="${url}" width="300" height="360" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>`);
 }
 
-// Function that close the music player when press the button
-function closePlayer() {
-    musicContainer.empty();
+// Adding selected artist' picture on the page
+function displayArtistPicture(artistPictureDeezer) {
+    musicContainer.append(`<img class="picture" src="${artistPictureDeezer}"> </img>`);
 }
 
 $("#search-btn").on("click", searchForSong)
