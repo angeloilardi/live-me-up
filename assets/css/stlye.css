@@ -1,3 +1,4 @@
+/*Angnieszkas code*/
 * {}
 
 .mask {
@@ -16,16 +17,16 @@
     border-radius: 15px;
 }
 
-/* everything above is agniezkas code*/
+/* everything below this point is Andys code*/
 .belowTheFold {
-    background-color: #000000;
+    background-image: linear-gradient(to top, #434343 0%, black 100%);
+    opacity: 95%;
 }
 
 .event-container {
     max-width: 100%;
     min-height: 600px;
     border: 1px solid white;
-    background-color:
 }
 
 .music-container {
