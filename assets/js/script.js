@@ -4,6 +4,7 @@ let currentPage = 0;
 results = [];
 
 function artistSearch(artist) {
+    console.log(artist);
     $.ajax({
         url: `https://rest.bandsintown.com/artists/${artist}/events?app_id=codingbootcamp`,
         method: "GET",
@@ -19,6 +20,7 @@ function artistSearch(artist) {
         }
     }).then(function (response) {
         results = response;
+        console.log(response);
         // scrolls down to the results
         $("html, body").animate({
             scrollTop: $(".event-container").offset().top
