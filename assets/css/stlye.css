@@ -1,13 +1,15 @@
 /*Angnieszkas code*/
-* {
-    font-family: "candal", sans-serif;
-}
+* {}
 
 .mask {
     margin: 0px;
     padding: 10;
     display: block;
     box-sizing: content-box;
+}
+
+h1 {
+    font-family: Permanent Marker;
 }
 
 #intro-box {
