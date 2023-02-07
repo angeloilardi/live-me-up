@@ -55,6 +55,7 @@
     min-height: 600px;
     border-radius: 25px;
     color: white;
+<<<<<<< HEAD
 }
 
 .music-container {
@@ -70,4 +71,6 @@
     flex: 0 350px 0;
     width: 350px;
     height: 350px;
+=======
+>>>>>>> 9c09ce6b60bb6ccc7858f005956778337f3c122c
 }
