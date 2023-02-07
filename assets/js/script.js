@@ -1,4 +1,5 @@
-
+let currentPage = 0;
+results = [];
 
 function artistSearch(artist) {
     $.ajax({
@@ -15,12 +16,10 @@ function artistSearch(artist) {
     }
 
     ).then(function (response) {
-        // commenting the next few lines as they're not in use right now
-        // let numOfEvents = response.length;
-        //console.log(numOfEvents);
-        // let currentlyDisplayed = 0
+    results = response;
+        
         // message if the are no results
-        console.log(response);
+        console.log(results);
         $("html, body").animate({
             scrollTop: $(".event-container").offset().top
         })
@@ -30,27 +29,29 @@ function artistSearch(artist) {
             //.addClass("row align-items-center");
             //calls function to display results
         } else {
-            showEvents(response, 0);
+            currentPage = 1
+            showEvents(results, 0, currentPage * 10);
             searchForSong();
         }
     })
 }
 
 
-function showEvents(response, counter) {
+function showEvents(results, start, finish) {
     $(".event-container").empty();
-    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${response[0].artist.name}`).addClass("row m-4");
+    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row m-4");
     $(".event-container").append(resultsHeading);
     // for each event found
-    for (let i = counter; i < response.length; i++) {
+    for (let i = start; i < finish; i++) {
+
         // gets the date and changes the format
-        let date = moment((response[i].datetime), "YYYY-MM-DD").format("DD/MM/YYYY");
+        let date = moment((results[i].datetime), "YYYY-MM-DD").format("DD/MM/YYYY");
         // gets the city
-        let city = response[i].venue.city;
+        let city = results[i].venue.city;
         // gets the country
-        let country = response[i].venue.country;
+        let country = results[i].venue.country;
         // gets the name of the venue
-        let venue = response[i].venue.name;
+        let venue = results[i].venue.name;
         //creates a row for the event
         let eventRow = $("<div>").addClass("row align-items-center p-2");
         // builds the event text
@@ -58,13 +59,32 @@ function showEvents(response, counter) {
         // the venue name with a smaller font
         let eventVenue = $("<h6>").text(`${venue}`).addClass("p-2");
         // gets link to the tickets
-        let getTicketsBtn = $("<button>").addClass("ml-auto").append((`<a target="_blank" href = ${response[i].url}>Get Tickets</a>`));
+        let getTicketsBtn = $("<button>").addClass("ml-auto").append((`<a target="_blank" href = ${results[i].url}>Get Tickets</a>`));
         //heading for event resulsts
+        
 
         $(eventRow).append(eventContent, eventVenue, getTicketsBtn);
         $(".event-container").append(eventRow);
-
     }
+    let nextBtn = $("<button>").attr({
+        type: 'submit',
+        id: 'next-btn'
+    })
+    .html(`<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>`);
+    let previousBtn = $("<button>").attr("type", "submit").html(`<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>`);
+
+    if (results.length > start +10){
+        $(".event-container").append(nextBtn);
+        $("#next-btn").on("click", function (event) {
+            event.preventDefault();
+            currentPage++;
+            console.log("what?");
+            showEvents(results, currentPage * 10 - 10, currentPage * 10);
+        });
+        
+    }
+
+    
 }
 
 
@@ -73,3 +93,4 @@ $("#search-btn").on("click", function () {
     console.log(searchEntry);
     artistSearch(searchEntry);
 });
+
