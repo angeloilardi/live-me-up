@@ -90,6 +90,10 @@ function artistSearch(artist) {
         // let currentlyDisplayed = 0
         // message if the are no results
         console.log(response);
+        $("html, body").animate({
+            scrollTop: $(".event-container").offset().top
+        })
+        
         if (response.length === 0) {
             $(".event-container").html(`<h3 class="mx-auto">Sorry, no results for this artist :/</h3>`)
             //.addClass("row align-items-center");
