@@ -1,4 +1,7 @@
-
+// variable to keep track of the results beng shown
+let currentPage = 0;
+//global variable for the API response
+results = [];
 
 function artistSearch(artist) {
     $.ajax({
@@ -8,68 +11,108 @@ function artistSearch(artist) {
         error: function (xhr, thrownError) {
             $(".event-container").empty();
             if (xhr.status == 404) {
+                $("html, body").animate({
+                    scrollTop: $(".event-container").offset().top
+                })
                 $(".event-container").html(`<h3 class="mx-auto">Ermm, we couldn't find that. Wanna give it another try?</h3>`)
-                //.toggleClass("row align-items-center")
             }
         }
-    }
-
-    ).then(function (response) {
-        // commenting the next few lines as they're not in use right now
-        // let numOfEvents = response.length;
-        //console.log(numOfEvents);
-        // let currentlyDisplayed = 0
-        // message if the are no results
-        console.log(response);
+    }).then(function (response) {
+        results = response;
+console.log(response);
+        // scrolls down to the results
         $("html, body").animate({
             scrollTop: $(".event-container").offset().top
         })
-
+        // message if the are no results
         if (response.length === 0) {
             $(".event-container").html(`<h3 class="mx-auto">Sorry, no results for this artist :/</h3>`)
-            //.addClass("row align-items-center");
-            //calls function to display results
         } else {
-            showEvents(response, 0);
+            currentPage = 1;
+            showEvents(results, 0, currentPage * 10);
             searchForSong();
         }
     })
 }
 
-
-function showEvents(response, counter) {
+// function that shows the event results
+function showEvents(results, start, finish) {
     $(".event-container").empty();
-    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${response[0].artist.name}`).addClass("row m-4");
+    $(".event-container").css({'&::before' : {'background-image': 'url(' + results[0].artist.image_url + ')', 'content': '', 'position' : 'absolute', 'background-repeat': 'no-repeat', 'top': '0', 'bottom': '0', 'left': '0', 'right': 0, 'background-size': 'cover', 'opacity': '0.2'}});
+    //heading for event results
+    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row mb-5 text-uppercase");
+    $(".event-container").css({ color: "white" });
     $(".event-container").append(resultsHeading);
     // for each event found
-    for (let i = counter; i < response.length; i++) {
+    for (let i = start; i < finish && i < results.length; i++) {
         // gets the date and changes the format
-        let date = moment((response[i].datetime), "YYYY-MM-DD").format("DD/MM/YYYY");
+        let date = moment((results[i].datetime), "YYYY-MM-DD").format("DD/MM/YYYY");
         // gets the city
-        let city = response[i].venue.city;
+        let city = results[i].venue.city;
         // gets the country
-        let country = response[i].venue.country;
+        let country = results[i].venue.country;
         // gets the name of the venue
-        let venue = response[i].venue.name;
+        let venue = results[i].venue.name;
         //creates a row for the event
         let eventRow = $("<div>").addClass("row align-items-center p-2");
         // builds the event text
         let eventContent = $("<h5>").text(`${date} - ${city} - ${country}`);
         // the venue name with a smaller font
-        let eventVenue = $("<h6>").text(`${venue}`).addClass("p-2");
+        let eventVenue = $("<h6>").text(`${venue}`).addClass("p-2 font-italic");
         // gets link to the tickets
-        let getTicketsBtn = $("<button>").addClass("ml-auto").append((`<a target="_blank" href = ${response[i].url}>Get Tickets</a>`));
-        //heading for event resulsts
-
+        let getTicketsBtn = $("<button>").addClass("ml-auto btn btn-light").append((`<a target="_blank" class = "text-decoration-none" href = ${results[i].url}>Get Tickets</a>`));
         $(eventRow).append(eventContent, eventVenue, getTicketsBtn);
         $(".event-container").append(eventRow);
-
     }
-}
+    let resultsDetails = $("<div>").addClass("row mt-3 result-details");
+    $(".event-container").append(resultsDetails);
 
+    if (results.length > currentPage * 10) {
+        $(resultsDetails).html(`<p>Showing ${(currentPage * 10) - 9} - ${(currentPage * 10)} of ${results.length}</p>`)
+    } else if (results.length < currentPage * 10) { $(resultsDetails).html(`<p>Showing ${(currentPage * 10 - 9)} - ${results.length} of ${results.length}</p>`) };
 
+    //button to show more results
+    let nextBtn = $("<button>").attr({
+        type: 'submit',
+        id: 'next-btn'
+    })
+        .html(`<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>`)
+        .addClass("browse-buttons ml-auto rounded-circle btn btn-outline-primary")
+
+    //button to show previous results
+    let previousBtn = $("<button>")
+        .attr({
+            type: "submit",
+            id: 'prev-btn'
+        })
+        .html(`<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>`)
+        .addClass("browse-buttons ml-auto rounded-circle btn btn-outline-primary");
+
+        // these two if statements show next or previous buttons accordin to the number of results remaining
+
+    if (currentPage > 1) {
+        $(".result-details").append(previousBtn);
+        $("#prev-btn").on("click", function (event) {
+            event.preventDefault();
+            currentPage--;
+            showEvents(results, currentPage * 10 - 10, currentPage * 10);
+        });
+    }
+
+    if (results.length > start + 10) {
+        $(".result-details").append(nextBtn);
+        $("#next-btn").on("click", function (event) {
+            event.preventDefault();
+            currentPage++;
+            showEvents(results, currentPage * 10 - 10, currentPage * 10);
+        });
+    }
+
+};
+
+//event listener for the search button
 $("#search-btn").on("click", function () {
     let searchEntry = $("#artist-search").val();
-    console.log(searchEntry);
     artistSearch(searchEntry);
 });
+
