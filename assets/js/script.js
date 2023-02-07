@@ -16,8 +16,8 @@ function artistSearch(artist) {
     }
 
     ).then(function (response) {
-    results = response;
-        
+        results = response;
+
         // message if the are no results
         console.log(results);
         $("html, body").animate({
@@ -42,7 +42,8 @@ function showEvents(results, start, finish) {
     let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row m-4");
     $(".event-container").append(resultsHeading);
     // for each event found
-    for (let i = start; i < finish; i++) {
+    for (let i = start; i < finish && i < results.length; i++) {
+
 
         // gets the date and changes the format
         let date = moment((results[i].datetime), "YYYY-MM-DD").format("DD/MM/YYYY");
@@ -61,7 +62,7 @@ function showEvents(results, start, finish) {
         // gets link to the tickets
         let getTicketsBtn = $("<button>").addClass("ml-auto").append((`<a target="_blank" href = ${results[i].url}>Get Tickets</a>`));
         //heading for event resulsts
-        
+
 
         $(eventRow).append(eventContent, eventVenue, getTicketsBtn);
         $(".event-container").append(eventRow);
@@ -70,10 +71,25 @@ function showEvents(results, start, finish) {
         type: 'submit',
         id: 'next-btn'
     })
-    .html(`<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>`);
-    let previousBtn = $("<button>").attr("type", "submit").html(`<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>`);
+        .html(`<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>`);
 
-    if (results.length > start +10){
+    let previousBtn = $("<button>")
+        .attr({
+            type: "submit",
+            id: 'prev-btn'
+        })
+        .html(`<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>`);
+
+    if (currentPage > 1) {
+        $(".event-container").append(previousBtn);
+        $("#prev-btn").on("click", function (event) {
+            event.preventDefault();
+            currentPage--;
+            showEvents(results, currentPage * 10 - 10, currentPage * 10);
+        });
+    }
+
+    if (results.length > start + 10) {
         $(".event-container").append(nextBtn);
         $("#next-btn").on("click", function (event) {
             event.preventDefault();
@@ -81,12 +97,12 @@ function showEvents(results, start, finish) {
             console.log("what?");
             showEvents(results, currentPage * 10 - 10, currentPage * 10);
         });
-        
+
+
     }
 
-    
-}
 
+};
 
 $("#search-btn").on("click", function () {
     let searchEntry = $("#artist-search").val();
