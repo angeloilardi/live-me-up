@@ -56,7 +56,6 @@ function openPlayer(albumPreview) {
     // Setting up player parameters
     const url = `https://widget.deezer.com/widget/dark/album/${albumPreview}?tracklist=false`;
     musicPlayer.append(`<iframe title="deezer-widget" src="${url}" width="100%" height="250" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>`);
-    // musicPlayer.append(`<iframe title="deezer-widget" src="${url}" width="300" height="360" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>`);
 }
 
 // Adding selected artist' picture on the page

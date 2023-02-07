@@ -59,18 +59,3 @@ h1 {
     color: white;
     padding: 30px;
 }
-
-.music-container {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 100%;
-    min-height: 400px;
-}
-
-.deezer-box {
-    flex: 0 350px 0;
-    width: 350px;
-    height: 350px;
-}
