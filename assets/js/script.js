@@ -19,7 +19,7 @@ function artistSearch(artist) {
         }
     }).then(function (response) {
         results = response;
-
+console.log(response);
         // scrolls down to the results
         $("html, body").animate({
             scrollTop: $(".event-container").offset().top
@@ -28,7 +28,7 @@ function artistSearch(artist) {
         if (response.length === 0) {
             $(".event-container").html(`<h3 class="mx-auto">Sorry, no results for this artist :/</h3>`)
         } else {
-            currentPage++;
+            currentPage = 1;
             showEvents(results, 0, currentPage * 10);
             searchForSong();
         }
@@ -38,6 +38,7 @@ function artistSearch(artist) {
 // function that shows the event results
 function showEvents(results, start, finish) {
     $(".event-container").empty();
+    $(".event-container").css({'&::before' : {'background-image': 'url(' + results[0].artist.image_url + ')', 'content': '', 'position' : 'absolute', 'background-repeat': 'no-repeat', 'top': '0', 'bottom': '0', 'left': '0', 'right': 0, 'background-size': 'cover', 'opacity': '0.2'}});
     //heading for event results
     let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row mb-5 text-uppercase");
     $(".event-container").css({ color: "white" });
