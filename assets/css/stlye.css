@@ -1,11 +1,23 @@
 /*Angnieszkas code*/
-* {}
+* {
+    font-family: "candal", sans-serif;
+}
 
 .mask {
     margin: 0px;
     padding: 10;
     display: block;
     box-sizing: content-box;
+}
+
+#intro-box {
+    background-color: rgb(0, 0, 0, 0.3);
+    border-radius: 25px;
+}
+
+#intro-box p {
+    color: white;
+    opacity: 100%;
 }
 
 .input-group {
@@ -20,7 +32,6 @@
 /* everything below this point is Andys code*/
 .belowTheFold {
     background-image: linear-gradient(to top, #434343 0%, black 100%);
-    opacity: 97%;
 }
 
 .row {
@@ -36,7 +47,7 @@
 .event-container {
     max-width: 100%;
     min-height: 600px;
-    border: 1px solid white;
+    border-radius: 25px;
 }
 
 .music-container {
@@ -50,8 +61,6 @@
 
 .deezer-box {
     flex: 0 350px 0;
-    border: 1px solid white;
     width: 350px;
     height: 350px;
-    text-align: center;
 }

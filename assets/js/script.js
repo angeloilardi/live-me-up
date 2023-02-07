@@ -68,7 +68,7 @@ $("#search-btn").on("click", function () {
     artistSearch(searchEntry);
 })
 
-// music player artist search
+// Ivanna JS 
 
 function artistSearch(artist) {
     $.ajax({

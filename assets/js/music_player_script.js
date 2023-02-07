@@ -1,7 +1,7 @@
 // Save references to DOM elements
 const musicContainer = $('.music-container');
 // Hetting a value from the text input field
-let searchQueryInput = $('#artist-search'); 
+let searchQueryInput = $('#artist-search');
 
 // The searchForSong function takes a music, searches the Deezer API for it, 
 // and then passes the data to open music player
@@ -11,11 +11,11 @@ function searchForSong() {
 
     // If no band name then stop
     if (searchQuery.length == 0) {
-        return; 
-    }  
+        return;
+    }
 
     // Variable that contains parameters to take data from Deezer API
-    const settings = { 
+    const settings = {
         "async": true,
         "crossDomain": true,
         "url": `https://deezerdevs-deezer.p.rapidapi.com/search?q=${searchQuery}`,
@@ -25,7 +25,7 @@ function searchForSong() {
             "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com"
         }
     }
-    
+
     // API call to take the data from deezer server
     $.ajax(settings).done(function (response) {
         if (!response.data || response.data.length <= 0) {
