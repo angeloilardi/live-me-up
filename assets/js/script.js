@@ -1,4 +1,6 @@
+// variable to keep track of the results beng shown
 let currentPage = 0;
+//global variable for the API response
 results = [];
 
 function artistSearch(artist) {
@@ -15,39 +17,33 @@ function artistSearch(artist) {
                 $(".event-container").html(`<h3 class="mx-auto">Ermm, we couldn't find that. Wanna give it another try?</h3>`)
             }
         }
-    }
-
-    ).then(function (response) {
+    }).then(function (response) {
         results = response;
 
-        // message if the are no results
-        console.log(results);
+        // scrolls down to the results
         $("html, body").animate({
             scrollTop: $(".event-container").offset().top
         })
-
+        // message if the are no results
         if (response.length === 0) {
             $(".event-container").html(`<h3 class="mx-auto">Sorry, no results for this artist :/</h3>`)
-            //.addClass("row align-items-center");
-            //calls function to display results
         } else {
-            currentPage = 1
+            currentPage++;
             showEvents(results, 0, currentPage * 10);
             searchForSong();
         }
     })
 }
 
-
+// function that shows the event results
 function showEvents(results, start, finish) {
     $(".event-container").empty();
-    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row mb-5");
-    $(".event-container").css({color: "white", 'text-align': 'center'});
+    //heading for event results
+    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row mb-5 text-uppercase");
+    $(".event-container").css({ color: "white" });
     $(".event-container").append(resultsHeading);
     // for each event found
     for (let i = start; i < finish && i < results.length; i++) {
-
-
         // gets the date and changes the format
         let date = moment((results[i].datetime), "YYYY-MM-DD").format("DD/MM/YYYY");
         // gets the city
@@ -64,35 +60,34 @@ function showEvents(results, start, finish) {
         let eventVenue = $("<h6>").text(`${venue}`).addClass("p-2 font-italic");
         // gets link to the tickets
         let getTicketsBtn = $("<button>").addClass("ml-auto btn btn-light").append((`<a target="_blank" class = "text-decoration-none" href = ${results[i].url}>Get Tickets</a>`));
-        //heading for event resulsts
-
-
         $(eventRow).append(eventContent, eventVenue, getTicketsBtn);
         $(".event-container").append(eventRow);
     }
     let resultsDetails = $("<div>").addClass("row mt-3 result-details");
     $(".event-container").append(resultsDetails);
-    
-    if(results.length > currentPage *10){
-        $(resultsDetails).html(`<p>Showing ${(currentPage * 10)  - 9} - ${(currentPage * 10)} of ${results.length}</p>`)
-    } else if (results.length < currentPage *10) {$(resultsDetails).html(`<p>Showing ${(currentPage * 10  -9)} - ${results.length} of ${results.length}</p>`)}
 
+    if (results.length > currentPage * 10) {
+        $(resultsDetails).html(`<p>Showing ${(currentPage * 10) - 9} - ${(currentPage * 10)} of ${results.length}</p>`)
+    } else if (results.length < currentPage * 10) { $(resultsDetails).html(`<p>Showing ${(currentPage * 10 - 9)} - ${results.length} of ${results.length}</p>`) };
+
+    //button to show more results
     let nextBtn = $("<button>").attr({
         type: 'submit',
         id: 'next-btn'
     })
         .html(`<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>`)
-        .addClass("browse-buttons ml-auto")
-        .css({'border-radius':'50px'});
+        .addClass("browse-buttons ml-auto rounded-circle btn btn-outline-primary")
 
+    //button to show previous results
     let previousBtn = $("<button>")
         .attr({
             type: "submit",
             id: 'prev-btn'
         })
         .html(`<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>`)
-        .addClass("browse-buttons ml-auto")
-        .css({'border-radius':'50px'});
+        .addClass("browse-buttons ml-auto rounded-circle btn btn-outline-primary");
+
+        // these two if statements show next or previous buttons accordin to the number of results remaining
 
     if (currentPage > 1) {
         $(".result-details").append(previousBtn);
@@ -114,9 +109,9 @@ function showEvents(results, start, finish) {
 
 };
 
+//event listener for the search button
 $("#search-btn").on("click", function () {
     let searchEntry = $("#artist-search").val();
-    console.log(searchEntry);
     artistSearch(searchEntry);
 });
 
