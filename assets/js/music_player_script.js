@@ -60,4 +60,4 @@ function displayArtistPicture(artistPictureDeezer) {
     musicContainer.append(`<img class="picture" src="${artistPictureDeezer}"> </img>`);
 }
 
-$("#search-btn").on("click", searchForSong)
+//$("#search-btn").on("click", searchForSong)
