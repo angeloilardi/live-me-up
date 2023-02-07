@@ -17,20 +17,90 @@
 </head>
 
 <body>
+    <!-- Hero -->
+    <div class="p-5 text-center bg-image rounded-3  darkened-image " style="
+background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80');
+background-repeat: no-repeat;
+background-size: cover;
+    background-attachment: fluid;
+    background-color: transparent;
+    filter: brightness(100%);
+    filter: saturate(80%);
+    filter: contrast(150%);
+    display: table;
+    width: 100%;
+    height: 100vh;">
+        <div class="mask">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-white">
+                    <h1 class=" shadow-effects mb-3 display-1 ">Live me up</h1>
 
-        <!-- Moment -->
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-                <!-- jQuery -->
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                <!-- Bootstrap JS -->
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-                    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-                    crossorigin="anonymous"></script>
-                <!-- jQuery -->
-                <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-                <!-- Local script -->
-                <script src="./assets/js/script.js"></script>
-                <script src="./assets/js/music_player_script.js"></script>
+                    <h2 class="mb-3 display-4 ">Find your gig</h2>
+                    <p class="mb-3 border rounded-pill style='width: 200px' ">
+                    <div id="intro-box">
+                        <p>This app will allow you</p>
+                        <p>to find information about your favourite musician</p>
+                        <p>and they newest concerts by location.
+                            It will also allows you to play some of their music.</p>
+                    </div>
+                    <div class="input-group">
+                        <div id="search-autocomplete" class="form-outline mr-auto ml-auto h-100">
+                            <input type="search" placeholder="type" id="artist-search"
+                                class="form-control mr-auto ml-auto h-100" />
+                            <label class="form-label text-dark" for="form1 "> <mark>Search</mark></label>
+
+                            <button type="button" id="search-btn" class="btn btn-primary mr-auto ml-auto h-100">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="btn btn-outline-light btn-lg " href="#!" role="button">Press if you want to search for
+                        nearest event by artist!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+
+    <!--Andy's code below this section everything above agnieszka. Andy will be working on image cards and large event container-->
+    <div class="belowTheFold">
+
+        <div class="row">
+
+            <div class="col-lg-12 p-3 mt-3">
+                <h2>Venues</h2>
+            </div>
+        </div>
+        <div class="container event-container justify-content-center"></div>
+        <div class="row">
+            <div class="col-lg-12 p-3 mt-3"></div>
+        </div>
+
+        <!-- Artist Picture & Deezer Player -->
+        <section class="container music-container mx-auto justify-content-center"> 
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12 artist-picture"></div>
+                <div class="col-lg-9 col-md-6 col-sm-12 deezer-player"></div>
+            </div>
+        </section>
+    </div>
+    <!-- Moment -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <!-- Local script -->
+    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/music_player_script.js"></script>
+    <footer>
+        <p>footer</p>
+    </footer>
 </body>
 
 </html>
