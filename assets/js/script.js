@@ -19,7 +19,6 @@ function artistSearch(artist) {
         }
     }).then(function (response) {
         results = response;
-        console.log(response);
         // scrolls down to the results
         $("html, body").animate({
             scrollTop: $(".event-container").offset().top
@@ -31,6 +30,19 @@ function artistSearch(artist) {
             currentPage = 1;
             showEvents(results, 0, currentPage * 10);
             searchForSong();
+            let history = localStorage.getItem('history');
+            if (history === null) currentHistory = []
+            else currentHistory = JSON.parse(localStorage.getItem('history'));
+            console.log(currentHistory);
+            console.log(artist);
+                console.log(currentHistory);
+                currentHistory.push(artist);
+                console.log(currentHistory);
+                localStorage.setItem('history', JSON.stringify(currentHistory));
+                $("#artist-search").autocomplete({
+                    source: JSON.parse(localStorage.getItem('history'))
+                })
+            
         }
     })
 }
@@ -116,3 +128,8 @@ $("#search-btn").on("click", function () {
     artistSearch(searchEntry);
 });
 
+
+
+$("#artist-search").autocomplete({
+    source: JSON.parse(localStorage.getItem('history'))
+})
