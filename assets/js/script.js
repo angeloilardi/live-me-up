@@ -4,6 +4,7 @@ let currentPage = 0;
 results = [];
 
 function artistSearch(artist) {
+    console.log(artist);
     $.ajax({
         url: `https://rest.bandsintown.com/artists/${artist}/events?app_id=codingbootcamp`,
         method: "GET",
@@ -19,7 +20,7 @@ function artistSearch(artist) {
         }
     }).then(function (response) {
         results = response;
-console.log(response);
+        console.log(response);
         // scrolls down to the results
         $("html, body").animate({
             scrollTop: $(".event-container").offset().top
@@ -31,6 +32,20 @@ console.log(response);
             currentPage = 1;
             showEvents(results, 0, currentPage * 10);
             searchForSong();
+            let history = localStorage.getItem('history');
+            if (history === null) currentHistory = []
+            else currentHistory = JSON.parse(localStorage.getItem('history'));
+            console.log(currentHistory);
+            console.log(artist);
+                console.log(currentHistory);
+                if (currentHistory.indexOf(artist) === -1){
+                    currentHistory.push(artist);
+                    localStorage.setItem('history', JSON.stringify(currentHistory));
+                }
+                $("#artist-search").autocomplete({
+                    source: JSON.parse(localStorage.getItem('history'))
+                })
+            
         }
     })
 }
@@ -38,7 +53,7 @@ console.log(response);
 // function that shows the event results
 function showEvents(results, start, finish) {
     $(".event-container").empty();
-    $(".event-container").css({'&::before' : {'background-image': 'url(' + results[0].artist.image_url + ')', 'content': '', 'position' : 'absolute', 'background-repeat': 'no-repeat', 'top': '0', 'bottom': '0', 'left': '0', 'right': 0, 'background-size': 'cover', 'opacity': '0.2'}});
+    $(".event-container").css({ '&::before': { 'background-image': 'url(' + results[0].artist.image_url + ')', 'content': '', 'position': 'absolute', 'background-repeat': 'no-repeat', 'top': '0', 'bottom': '0', 'left': '0', 'right': 0, 'background-size': 'cover', 'opacity': '0.2' } });
     //heading for event results
     let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row mb-5 text-uppercase");
     $(".event-container").css({ color: "white" });
@@ -88,7 +103,7 @@ function showEvents(results, start, finish) {
         .html(`<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>`)
         .addClass("browse-buttons ml-auto rounded-circle btn btn-outline-primary");
 
-        // these two if statements show next or previous buttons accordin to the number of results remaining
+    // these two if statements show next or previous buttons accordin to the number of results remaining
 
     if (currentPage > 1) {
         $(".result-details").append(previousBtn);
@@ -116,3 +131,8 @@ $("#search-btn").on("click", function () {
     artistSearch(searchEntry);
 });
 
+
+
+$("#artist-search").autocomplete({
+    source: JSON.parse(localStorage.getItem('history'))
+})
