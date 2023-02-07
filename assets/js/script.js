@@ -9,8 +9,10 @@ function artistSearch(artist) {
         error: function (xhr, thrownError) {
             $(".event-container").empty();
             if (xhr.status == 404) {
+                $("html, body").animate({
+                    scrollTop: $(".event-container").offset().top
+                })
                 $(".event-container").html(`<h3 class="mx-auto">Ermm, we couldn't find that. Wanna give it another try?</h3>`)
-                //.toggleClass("row align-items-center")
             }
         }
     }
@@ -39,7 +41,8 @@ function artistSearch(artist) {
 
 function showEvents(results, start, finish) {
     $(".event-container").empty();
-    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row m-4");
+    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row mb-5");
+    $(".event-container").css({color: "white", 'text-align': 'center'});
     $(".event-container").append(resultsHeading);
     // for each event found
     for (let i = start; i < finish && i < results.length; i++) {
@@ -58,30 +61,41 @@ function showEvents(results, start, finish) {
         // builds the event text
         let eventContent = $("<h5>").text(`${date} - ${city} - ${country}`);
         // the venue name with a smaller font
-        let eventVenue = $("<h6>").text(`${venue}`).addClass("p-2");
+        let eventVenue = $("<h6>").text(`${venue}`).addClass("p-2 font-italic");
         // gets link to the tickets
-        let getTicketsBtn = $("<button>").addClass("ml-auto").append((`<a target="_blank" href = ${results[i].url}>Get Tickets</a>`));
+        let getTicketsBtn = $("<button>").addClass("ml-auto btn btn-light").append((`<a target="_blank" class = "text-decoration-none" href = ${results[i].url}>Get Tickets</a>`));
         //heading for event resulsts
 
 
         $(eventRow).append(eventContent, eventVenue, getTicketsBtn);
         $(".event-container").append(eventRow);
     }
+    let resultsDetails = $("<div>").addClass("row mt-3 result-details");
+    $(".event-container").append(resultsDetails);
+    
+    if(results.length > currentPage *10){
+        $(resultsDetails).html(`<p>Showing ${(currentPage * 10)  - 9} - ${(currentPage * 10)} of ${results.length}</p>`)
+    } else if (results.length < currentPage *10) {$(resultsDetails).html(`<p>Showing ${(currentPage * 10  -9)} - ${results.length} of ${results.length}</p>`)}
+
     let nextBtn = $("<button>").attr({
         type: 'submit',
         id: 'next-btn'
     })
-        .html(`<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>`);
+        .html(`<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>`)
+        .addClass("browse-buttons ml-auto")
+        .css({'border-radius':'50px'});
 
     let previousBtn = $("<button>")
         .attr({
             type: "submit",
             id: 'prev-btn'
         })
-        .html(`<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>`);
+        .html(`<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>`)
+        .addClass("browse-buttons ml-auto")
+        .css({'border-radius':'50px'});
 
     if (currentPage > 1) {
-        $(".event-container").append(previousBtn);
+        $(".result-details").append(previousBtn);
         $("#prev-btn").on("click", function (event) {
             event.preventDefault();
             currentPage--;
@@ -90,17 +104,13 @@ function showEvents(results, start, finish) {
     }
 
     if (results.length > start + 10) {
-        $(".event-container").append(nextBtn);
+        $(".result-details").append(nextBtn);
         $("#next-btn").on("click", function (event) {
             event.preventDefault();
             currentPage++;
-            console.log("what?");
             showEvents(results, currentPage * 10 - 10, currentPage * 10);
         });
-
-
     }
-
 
 };
 
