@@ -38,9 +38,10 @@ function artistSearch(artist) {
             console.log(currentHistory);
             console.log(artist);
                 console.log(currentHistory);
-                currentHistory.push(artist);
-                console.log(currentHistory);
-                localStorage.setItem('history', JSON.stringify(currentHistory));
+                if (currentHistory.indexOf(artist) === -1){
+                    currentHistory.push(artist);
+                    localStorage.setItem('history', JSON.stringify(currentHistory));
+                }
                 $("#artist-search").autocomplete({
                     source: JSON.parse(localStorage.getItem('history'))
                 })
