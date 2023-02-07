@@ -24,7 +24,8 @@ function artistSearch(artist) {
                 .addClass("row align-items-center");
             //calls function to display results
         } else {
-            showEvents(response, 0)
+            showEvents(response, 0);
+            searchForSong;
         }
     })
 }
@@ -99,7 +100,8 @@ function artistSearch(artist) {
             //.addClass("row align-items-center");
             //calls function to display results
         } else {
-            showEvents(response, 0)
+            showEvents(response, 0);
+            searchForSong()
         }
     })
 }
