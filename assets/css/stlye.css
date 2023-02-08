@@ -39,10 +39,11 @@ h1 {
     text-align: center;
 }
 
-.row h2 {
+.sub-heading {
     font-size: xx-large;
     font-weight: bolder;
     color: white;
+    font-family: "Candal";
 }
 
 .large-event-box {
