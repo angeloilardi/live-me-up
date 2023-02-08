@@ -31,6 +31,19 @@ function artistSearch(artist) {
             currentPage = 1;
             showEvents(results, 0, currentPage * 10);
             searchForSong();
+            let history = localStorage.getItem('history');
+            if (history === null) currentHistory = []
+            else currentHistory = JSON.parse(localStorage.getItem('history'));
+            console.log(currentHistory);
+            console.log(artist);
+                console.log(currentHistory);
+                if (currentHistory.indexOf(artist) === -1){
+                    currentHistory.push(artist);
+                    localStorage.setItem('history', JSON.stringify(currentHistory));
+                }
+                $("#artist-search").autocomplete({
+                    source: JSON.parse(localStorage.getItem('history'))
+                })
         }
     })
 }
@@ -116,3 +129,6 @@ $("#search-btn").on("click", function () {
     artistSearch(searchEntry);
 });
 
+$("#artist-search").autocomplete({
+    source: JSON.parse(localStorage.getItem('history'))
+})
