@@ -1,4 +1,6 @@
 // Save references to DOM elements
+const musicPlayer = $('.deezer-player');
+const artistImg = $('.artist-picture');
 const musicContainer = $('.music-container');
 // Hetting a value from the text input field
 let searchQueryInput = $('#artist-search');
@@ -40,7 +42,8 @@ function searchForSong() {
         const artistPictureDeezer = response.data[0].artist.picture_medium;
 
         // Remove old iframe element and picture before adding new one
-        musicContainer.empty();
+        artistImg.empty();
+        musicPlayer.empty();
         // Call openPlayer function to play selected artist album
         openPlayer(albumPreview);
         // Adding artist picture from Deezer
@@ -52,12 +55,12 @@ function searchForSong() {
 function openPlayer(albumPreview) {
     // Setting up player parameters
     const url = `https://widget.deezer.com/widget/dark/album/${albumPreview}?tracklist=false`;
-    musicContainer.append(`<iframe title="deezer-widget" src="${url}" width="300" height="360" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>`);
+    musicPlayer.append(`<iframe title="deezer-widget" src="${url}" width="100%" height="250" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>`);
 }
 
 // Adding selected artist' picture on the page
 function displayArtistPicture(artistPictureDeezer) {
-    musicContainer.append(`<img class="picture" src="${artistPictureDeezer}"> </img>`);
+    artistImg.append(`<img class="picture rounded" src="${artistPictureDeezer}"> </img>`);
 }
 
-//$("#search-btn").on("click", searchForSong)
+$("#search-btn").on("click", searchForSong)
