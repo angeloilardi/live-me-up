@@ -11,6 +11,7 @@ function artistSearch(artist) {
         //error 404 handling
         error: function (xhr, thrownError) {
             $(".event-container").empty();
+            $("#artist-search").val('');
             if (xhr.status == 404) {
                 $("html, body").animate({
                     scrollTop: $(".event-container").offset().top
@@ -19,15 +20,15 @@ function artistSearch(artist) {
             }
         }
     }).then(function (response) {
+        $("#artist-search").val('');
         results = response;
-        console.log(response);
         // scrolls down to the results
         $("html, body").animate({
             scrollTop: $(".event-container").offset().top
         })
         // message if the are no results
         if (response.length === 0) {
-            $(".event-container").html(`<h3 class="mx-auto">Sorry, no results for this artist :/</h3>`)
+            $(".event-container").html(`<h3 class="mx-auto">Sorry, no results for ${artist} :/</h3>`)
         } else {
             currentPage = 1;
             showEvents(results, 0, currentPage * 10);
@@ -92,7 +93,7 @@ function showEvents(results, start, finish) {
         id: 'next-btn'
     })
         .html(`<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>`)
-        .addClass("browse-buttons ml-auto rounded-circle btn btn-outline-primary")
+        .addClass("browse-buttons ml-auto rounded-circle btn btn-dark")
 
     //button to show previous results
     let previousBtn = $("<button>")
@@ -101,7 +102,7 @@ function showEvents(results, start, finish) {
             id: 'prev-btn'
         })
         .html(`<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>`)
-        .addClass("browse-buttons ml-auto rounded-circle btn btn-outline-primary");
+        .addClass("browse-buttons ml-auto rounded-circle btn btn-dark");
 
     // these two if statements show next or previous buttons accordin to the number of results remaining
 
@@ -127,7 +128,7 @@ function showEvents(results, start, finish) {
 
 //event listener for the search button
 $("#search-btn").on("click", function () {
-    let searchEntry = $("#artist-search").val();
+    let searchEntry = $("#artist-search").val().trim();
     artistSearch(searchEntry);
 });
 
