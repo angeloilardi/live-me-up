@@ -56,7 +56,7 @@ function showEvents(results, start, finish) {
     $(".event-container").empty();
     $(".event-container").css({ '&::before': { 'background-image': 'url(' + results[0].artist.image_url + ')', 'content': '', 'position': 'absolute', 'background-repeat': 'no-repeat', 'top': '0', 'bottom': '0', 'left': '0', 'right': 0, 'background-size': 'cover', 'opacity': '0.2' } });
     //heading for event results
-    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row mb-5 text-uppercase");
+    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row my-5 text-uppercase");
     $(".event-container").css({ color: "white" });
     $(".event-container").append(resultsHeading);
     // for each event found
