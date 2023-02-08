@@ -19,7 +19,7 @@ function artistSearch(artist) {
         }
     }).then(function (response) {
         results = response;
-        console.log(response);
+        $("#artist-search").val('')
         // scrolls down to the results
         $("html, body").animate({
             scrollTop: $(".event-container").offset().top
@@ -51,9 +51,9 @@ function artistSearch(artist) {
 // function that shows the event results
 function showEvents(results, start, finish) {
     $(".event-container").empty();
-    $(".event-container").css({ '&::before': { 'background-image': 'url(' + results[0].artist.image_url + ')', 'content': '', 'position': 'absolute', 'background-repeat': 'no-repeat', 'top': '0', 'bottom': '0', 'left': '0', 'right': 0, 'background-size': 'cover', 'opacity': '0.2' } });
+    //$(".event-container").css({ '&::before': { 'background-image': 'url(' + results[0].artist.image_url + ')', 'content': '', 'position': 'absolute', 'background-repeat': 'no-repeat', 'top': '0', 'bottom': '0', 'left': '0', 'right': 0, 'background-size': 'cover', 'opacity': '0.2' } });
     //heading for event results
-    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row mb-5 text-uppercase");
+    let resultsHeading = $("<h4>").text(`UPCOMING EVENTS FOR ${results[0].artist.name}`).addClass("row mb-5 text-uppercase justify-content-center");
     $(".event-container").css({ color: "white" });
     $(".event-container").append(resultsHeading);
     // for each event found
@@ -131,4 +131,12 @@ $("#search-btn").on("click", function () {
 
 $("#artist-search").autocomplete({
     source: JSON.parse(localStorage.getItem('history'))
+});
+
+$("#artist-search").keypress(function (event){
+    if (event.keyCode === 13){
+        artistSearch($("#artist-search").val());
+    }
 })
+
+
