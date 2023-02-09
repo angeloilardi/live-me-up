@@ -53,6 +53,10 @@ Live Me Up was built with a combination of:
 As this is all able to run inside the browser you won't need to install anything to run this app.
 To deploy, simply follow the URL and begin searching.
 
+### Deploy using this link
+
+https://helldorado82.github.io/live-me-up/
+
 ***
 
 ## Acknowledgements
