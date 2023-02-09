@@ -42,9 +42,6 @@ $(document).ready(function () {
                 let history = localStorage.getItem('history');
                 if (history === null) currentHistory = []
                 else currentHistory = JSON.parse(localStorage.getItem('history'));
-                console.log(currentHistory);
-                console.log(artist);
-                console.log(currentHistory);
                 if (currentHistory.indexOf(artist) === -1) {
                     currentHistory.push(artist);
                     localStorage.setItem('history', JSON.stringify(currentHistory));
@@ -151,7 +148,6 @@ $(document).ready(function () {
     $("#artist-search").keypress(function (event) {
         if (event.keyCode === 13) {
             artistSearch($("#artist-search").val());
-            searchForSong();
         }
     })
 });
