@@ -3,6 +3,13 @@ $(document).ready(function () {
     let currentPage = 0;
     //global variable for the API response
     results = [];
+    //back to search button
+    let backToSearch = $("<a>").text("Back to search").addClass("mt-3 text-decoration-none alert-link")
+    .on("click", function scrollUp(){
+        $("html, body").animate({
+            scrollTop: "0"
+        })
+    })
 
     function artistSearch(artist) {
         $.ajax({
@@ -15,7 +22,7 @@ $(document).ready(function () {
                     $("html, body").animate({
                         scrollTop: $(".event-container").offset().top
                     })
-                    $(".event-container").html(`<h3 class="mx-auto">Ermm, we couldn't find that. Wanna give it another try?</h3>`)
+                    $(".event-container").html(`<h3 class="mx-auto">Ermm, we couldn't find that. Wanna give it another try?</h3>`).append(backToSearch);
                 }
             }
         }).then(function (response) {
@@ -27,7 +34,7 @@ $(document).ready(function () {
             })
             // message if the are no results
             if (response.length === 0) {
-                $(".event-container").html(`<h3 class="mx-auto">Sorry, no results for this artist :/</h3>`)
+                $(".event-container").html(`<h3 class="mx-auto">Sorry, no upcoming events for ${artist} :/</h3>`).append(backToSearch)
             } else {
                 currentPage = 1;
                 showEvents(results, 0, currentPage * 10);
@@ -121,6 +128,13 @@ $(document).ready(function () {
                 showEvents(results, currentPage * 10 - 10, currentPage * 10);
             });
         }
+
+        $(".event-container").append(backToSearch);
+        $(backToSearch).on("click", function scrollUp(){
+            $("html, body").animate({
+                scrollTop: "0"
+            })
+        })
 
     };
 
