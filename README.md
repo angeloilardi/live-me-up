@@ -46,7 +46,7 @@ Live Me Up was built with a combination of:
 
 ### Listen to music by the artist (generated through the same search)
 
-![Listen to music by the artist ](./assets/Images/Screenshot%202023-02-09%20at%2018.16.45.png"Listen to music")
+![Listen to music by the artist ](./assets/Images/Screenshot%202023-02-09%20at%2018.16.45.png "Listen to music")
 ***
 
 ## Installation & Deployment
