@@ -55,7 +55,7 @@ To deploy, simply follow the URL and begin searching.
 
 ### Deploy using this link
 
-https://helldorado82.github.io/live-me-up/
+https://angeloilardi.github.io/live-me-up/
 
 ***
 
