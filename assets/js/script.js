@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     function artistSearch(artist) {
         $.ajax({
-            url: `https://rest.bandsintown.com/artists/${artist}/events?app_id=codingbootcamp`,
+            url: `https://rest.bandsintown.com/artists/${artist}/events?app_id=bootcamp`,
             method: "GET",
             //error 404 handling
             error: function (xhr, thrownError) {
